@@ -8,14 +8,16 @@ exports.getAllPost = async (req, res, next) => {
    
     const posts = await prisma.post.findMany({
         include: {
+            like: true,
+            commentaires: true,
+            dislike: true,
                 _count: {
                     select:{
-                        commentaires: true,
                         like: true,
+                        commentaires: true,
                         dislike: true,
                     }
                 }
-            
         }
     })
     try{
@@ -59,7 +61,7 @@ exports.createpost = async (req, res, next) => {
     }   
     catch (err){
         res.status(400).json(err)
-        console.log(`${req.protocol}://${req.get('host')}/images_post/${req.file.filename}`)
+       throw err
     }
 }
 
@@ -68,8 +70,7 @@ exports.likeOnePost = async (req, res, next) => {
     let like = parseInt(req.body.like);
     console.log(req.params.postId)
     try{
-
-        const token = req.headers.authorization.split(' ')[1]; // récupère le token dans le headers
+        const token = req.cookies.jwt; // récupère le token dans le headers
         if (!token){
             res.status(400).json({message: "erreur de token"})
         }
@@ -162,5 +163,19 @@ exports.likeOnePost = async (req, res, next) => {
             res.status(400).json(e)
         }
         throw e
+    }
+}
+
+exports.getAllLike = async (req, res, next) => {
+   
+    const like = await prisma.likes.findMany({
+    })
+    try{
+        if(like){
+            res.status(200).json(like)
+        }
+    }
+    catch(err){
+        res.status(400).json(err)
     }
 }

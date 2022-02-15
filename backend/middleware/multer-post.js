@@ -1,40 +1,21 @@
-const multer = require("multer");
-const path = require("path");
+const multer = require('multer'); //Module pour pouvoir traiter les fichiers  en l'occurence des images.
 
-const storage = multer.diskStorage({
-  destination: (req, file, callback) => {
-    callback(null, "images_post");
-  },
-  filename: (req, file, callback) => {
-    console.log("====================================");
-    console.log(file);
-    console.log("====================================");
-    const NameFormat = `${Date.now()}-$(file.fieldname)${path.extname(
-      file.originalname
-    )}`;
-
-    callback(null, NameFormat);
-  },
-});
-
-const upload = multer({
-  storage: storage,
-  limits: 2 * 1000 * 1000,
-});
-
-const singleUpload = (req, res, next) => {
-  const uploadSingle = upload.single("imagesUrl");
-
-  uploadSingle(req, res, (err) => {
-    if (err) {
-      res.status(500).send({
-        message: "multer error",
-        error: err,
-      });
-    } else {
-      next();
-    }
-  });
+const MIME_TYPES = {
+  'image/jpg' : 'jpg',
+  'image/jpeg': 'jpg',
+  'image/png' : 'png'
 };
+const storage = multer.diskStorage({ //Stock l'image dans le disktorage 
+    destination: (req, file, callback) => {
+        callback(null, 'images_post')
+    },
+    filename: (req, file, callback) => {
+        const name = file.originalname.split('.')[0].split(' ').join('_');
+        const extension = MIME_TYPES[file.mimetype];
+        callback(null, name + '_' + Date.now() + '.' + extension);
+    }
+})
 
-module.exports = singleUpload;
+console.log(storage)
+
+module.exports = multer({ storage }).single('imageUrl');

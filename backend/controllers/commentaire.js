@@ -45,34 +45,14 @@ exports.deleteOneComment = async (req, res, next) => {
 
 exports.postcomment = async (req, res, next) => {
     try {
-        const token = req.headers.authorization.split(' ')[1]; // récupère le token dans le headers
-        if (!token) {
-            res.status(400).json({ message: "erreur de token" })
-        }
-        else {
-            const decodedToken = jwt.verify(token, `${process.env.SECRET_TOKEN}`) // verifie le token dans le headers et celui dans 
-            var userConnected = decodedToken.utilisateurId
-            console.log(decodedToken)
-            console.log(userConnected)
-        }
-        var findPseudo = await prisma.utilisateur.findUnique({
-            where: {
-                id: parseInt(userConnected)
-            }
-        })
-        if (findPseudo) {
             const commentaires = await prisma.commentaire.create({
                 data: {
                     postID: parseInt(req.params.postId),
-                    pseudoComm: findPseudo.pseudo,
+                    pseudoComm: req.body.pseudoComm,
                     texte: req.body.texte
                 },
             })
-            res.status(201).json(commentaires)
-        }
-        else {
-            res.status(400).json({ message: "vous n'avez pas de compte veuillez en créer un" })
-        }
+          return  res.status(201).json(commentaires)
     }
     catch (e) {
         if (e instanceof Prisma.PrismaClientKnownRequestError) {

@@ -18,7 +18,7 @@ exports.inscription =  async (req, res, next ) => {
                         mdp: req.body.mdp,
                     },
                   });
-            res.status(201).json({message: 'utilisateur crée!'})
+            res.status(201).json({user})
             
         
         } catch (err) {
@@ -44,19 +44,38 @@ exports.login = async (req, res, next) => {
              if (!valid) {
                  return res.status(401).json({ error: 'Mot de passe incorrect !' })
              }
-             res.status(200).json({
-                 utilisateurId: utilisateurLa.id,
-                 token: jwt.sign(
+                 const token = jwt.sign(
                      { utilisateurId: utilisateurLa.id },
                      process.env.SECRET_TOKEN,
-                     { expiresIn: '24h' }
-                 )
-             })
+                     
+                 ) 
+                 res.cookie("jwt", token, {
+                     httpOnly: true,
+                     maxAge:900000,
+                 })
+                 .status(200)
+                 .json({token})
+             
          })
     }
     catch(err){
-        return res.status(400).json(err)
+        return res.status(200).send({err})
 
+    }
+}
+exports.getAllUser = async (req, res, next) => {
+
+    try {
+        const getUser = await prisma.utilisateur.findMany({
+            include:{
+                posts: true,
+                Commentaire: true
+            }
+        })
+        res.status(200).json( getUser )
+    }
+catch (err){
+        res.status(400).json(err)
     }
 }
 
@@ -81,6 +100,19 @@ catch (err){
     }
 }
 
+exports.logout = (req, res) => {
+    try{
+        console.log('babouch')
+    
+    res.cookie('jwt', '', { maxAge: 1 });
+    res.redirect('/home');
+    }
+    catch (err){
+        console.log(err)
+      
+        throw err
+    }
+  }
 
 exports.update = async (req, res, next ) => { // modifier le pseudo dans la base de donnné par le  req.body.pseudo
     try {   
@@ -89,12 +121,31 @@ exports.update = async (req, res, next ) => { // modifier le pseudo dans la base
                 id: parseInt(req.params.id)
             },
             data: {
-                pseudo: req.body.pseudo
+                pseudo: req.body.pseudo,
+                imagesUrl: `${req.protocol}://${req.get('host')}/images_post/${req.file.filename}`,
             }
         })
         res.status(200).json(updateUser)
     }
     catch (err) {
         res.status(400).json({ message: 'erreur dans la requête '})
+        throw err
     }
+}
+
+exports.jwtokenid = async (req, res, next ) => {
+    const token = req.cookies.jwt;
+    try {
+        if(!token){
+           return res.status(200).json({message: 'pas de token'})
+        }
+        else {
+        const decodedToken = jwt.verify(token, process.env.SECRET_TOKEN)
+        return res.status(200).json(decodedToken)
+    }
+    }
+    catch (err){
+        return res.status(400).json(err)
+    }
+        
 }
