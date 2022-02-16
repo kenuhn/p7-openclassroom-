@@ -1,6 +1,7 @@
 import { GET_USER } from "../actions/user-actions";
 import {UPLOAD_PICTURE} from "../actions/user-actions"
 import { DELETE_PROFIL } from "../actions/user-actions";
+import { ADD_POST } from "../actions/post-actions";
 const initialState = {};
 
 

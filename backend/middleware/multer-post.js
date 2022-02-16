@@ -18,4 +18,4 @@ const storage = multer.diskStorage({ //Stock l'image dans le disktorage
 
 console.log(storage)
 
-module.exports = multer({ storage }).single('imageUrl');
+module.exports = multer({ storage }).single('imagesUrl');

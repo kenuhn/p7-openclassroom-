@@ -1,8 +1,14 @@
 import Axios from "axios";
 export const GET_POSTS = "GET_POSTS";
 export const ADD_POST = "ADD_POST";
-export const ADD_COMMENT = "ADD_COMMENT";
 export const DELETE_POST = "DELETE_POST"
+
+
+//commentaire
+export const ADD_COMMENT = "ADD_COMMENT";
+export const DELETE_COMMENT = "DELETE_COMMENT";
+
+
 
 
 export const getPosts = (num) => {
@@ -19,11 +25,14 @@ export const getPosts = (num) => {
   };
 
   export const addPost = (data, id) => {
-    return () => {
+    return (dispatch) => {
         return Axios({
           method: "post",
           url: `http://localhost:5050/api/home/${id}`,
           data: data,
+        })
+        .then((res) => {
+          dispatch({ type: ADD_POST, payload: { id } });
         })
       };
   }
@@ -55,5 +64,19 @@ export const getPosts = (num) => {
     };
   }
 
+
+  export const deleteCommentaire = (commentID) => {
+    return (dispatch) => {
+      return Axios({
+        method: "delete",
+        url: `http://localhost:5050/api/commentaires/${commentID}`,
+      })
+      .then((res) => {
+        dispatch({ type: DELETE_COMMENT, payload: { commentID } });
+      })
+      .catch((err) => console.log(err));
+    }
+
+  }
 
 

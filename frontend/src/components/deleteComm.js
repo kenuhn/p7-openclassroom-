@@ -1,9 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteCommentaire } from '../actions/post-actions';
 
-const DeleteComm = () => {
+const DeleteComm = ({commentaire}) => {
+
+    const [isAuthor, setIsAuthor] = useState(false);
+    const userData = useSelector((state) => state.UserReducer)
+    const AdminID = { id: 1}
+    const dispatch = useDispatch();
+    console.log(userData.id)
+
+    useEffect(() => {
+        const checkAuthor = () => {
+          if (userData.pseudo === commentaire.pseudoComm) {
+            setIsAuthor(true);
+          }
+        };
+        checkAuthor();
+      }, [userData.pseudo , commentaire.pseudoComm]);
+
+ const handleDelete = () => {
+     dispatch(deleteCommentaire(commentaire.id))
+     window.location.reload()
+ };
+  
+    
     return (
-        <div>
-            supprimer
+        <div className="edit-comment">
+          {userData.id === AdminID.id ||userData.pseudo , commentaire.pseudoComm &&(<span onClick={() => {
+              if (window.confirm("êtes vous sur de supprimer le commentaire de l'utilisateur")){
+                handleDelete();
+              }
+          }}>
+          <img src="./img/trash.svg" alt="edit-comment" />
+        </span>)}   
         </div>
     );
 };

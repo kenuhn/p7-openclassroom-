@@ -17,7 +17,7 @@ const NewPostForm = () => {
             const data = new FormData();
             data.append("auteurID", userData.id)
             data.append("description", message)
-            if (file){ data.append("imageUrl", file)}
+            if (file){ data.append("imagesUrl", file)}
             console.log(file)
             await dispatch(addPost(data, userData.id))
             dispatch(getPosts())
@@ -96,7 +96,7 @@ const NewPostForm = () => {
                                 <input
                                     type="file"
                                     id="file-upload"
-                                    name="imageUrl"
+                                    name="imagesUrl"
                                     accept=".jpg, .jpeg, .png"
                                     onChange={(e) => handlePicture(e)}
                                 />

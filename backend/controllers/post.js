@@ -49,20 +49,30 @@ exports.deleteOnePost = async (req, res , next) => {
 
 exports.createpost = async (req, res, next) => {
 
-    try {
-            const posts = await prisma.post.create({
-                data:{
-                    nom: req.body.nom,
-                    description: req.body.description,
-                    auteurID: parseInt(req.params.id),
-                    imagesUrl: `${req.protocol}://${req.get('host')}/images_post/${req.file.filename}`
-                },
-            })
-            res.status(201).json(posts)
+    try {   
+            if (req.file){
+                const posts = await prisma.post.create({
+                    data:{
+                        description: req.body.description,
+                        auteurID: parseInt(req.params.id),
+                        imagesUrl: `${req.protocol}://${req.get('host')}/images_post/${req.file.filename}`,
+                    },
+                })
+               return res.status(201).json(posts)
+            }
+            else {
+                const posts = await prisma.post.create({
+                    data:{
+                        description: req.body.description,
+                        auteurID: parseInt(req.params.id),
+                    },
+                })
+                res.status(201).json(posts)
+            }
     }   
     catch (err){
         res.status(400).json(err)
-       throw err
+        throw err
     }
 }
 

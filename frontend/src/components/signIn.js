@@ -19,13 +19,8 @@ const SignIn = () => {
             }
 
         })
-            //console.log(',l,lk,k,kl,lk,')
             .then((response) => {
                 console.log(response)
-                /*  if(response.data.error) {
-                      emailError.innerHTML = "l'email n'existe pas"
-                      passwordError.innerHTML = "le mot de passe n'existe pas"
-                  } else {*/
                 window.location = '/'
 
             })

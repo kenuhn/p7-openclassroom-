@@ -1,11 +1,7 @@
 import {
     DELETE_COMMENT,
     DELETE_POST,
-    EDIT_COMMENT,
     GET_POSTS,
-    GET_LIKES,
-    UNLIKE_POST,
-    UPDATE_POST,
   } from "../actions/post-actions";
   
   const initialState = {};
@@ -16,6 +12,8 @@ import {
           return action.payload;
           case DELETE_POST:
             return state.filter((post) => post.id !== action.payload.postID)
+          case DELETE_COMMENT:
+              return state.payload
             default: 
             return state
      }

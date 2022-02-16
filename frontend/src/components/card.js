@@ -54,7 +54,7 @@ const Card = ({ post }) => {
             </div>
             <p>{post.description}</p>
             {post.imagesUrl &&( <img src={post.imagesUrl} alt="images du post" className="card-pic" />)}
-            {userData.id === AdminID.id &&(
+            {userData.id === AdminID.id || userData.id  === post.auteurID &&(
               <div className="button-container">
                 <DeletCard id={post.id} />
               </div>

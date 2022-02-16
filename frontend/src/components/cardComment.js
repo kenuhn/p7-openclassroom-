@@ -2,7 +2,7 @@ import { React, useState, } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addComment, getPosts } from "../actions/post-actions";
 import { isEmpty } from "./utils";
-import { deleteComm} from "./deleteComm"
+import  DeleteComm from "./deleteComm"
 
 
 
@@ -11,7 +11,7 @@ const CardComments = ({ post }) => {
   const usersData = useSelector((state) => state.UsersReducer);
   const userData = useSelector((state) => state.UserReducer);
   const dispatch = useDispatch();
- 
+  const AdminID = { id: 1}
   const handleComment = (e) => { 
     e.preventDefault();
     if(text){
@@ -41,7 +41,7 @@ const CardComments = ({ post }) => {
               <div className="pseudo">
                 <h3>{commentaire.pseudoComm}</h3>
                 <p>{commentaire.texte}</p>
-                <deleteComm commentaire={commentaire} postId={post.id} />
+                <DeleteComm commentaire={commentaire} postId={post.id} />
               </div>
             </div>
           </div>

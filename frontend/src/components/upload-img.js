@@ -16,7 +16,7 @@ const UploadImg = () => {
     data.append("imageUrl", file);
     dispatch(uploadPicture(data, userData.id));
   };
-
+  
   return (
     <form action="" onSubmit={handlePicture} className="upload-pic">
       <label htmlFor="file">Changer d'image</label>
