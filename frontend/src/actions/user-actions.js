@@ -2,7 +2,7 @@ import Axios from "axios"
 export const GET_USER = "GET_USER";
 export const UPLOAD_PICTURE = "UPLOAD_PICTURE";
 export const GET_USER_ERRORS = "GET_USER_ERRORS"
-
+export const DELETE_PROFIL = "DELETE_PROFIL";
 export const getUser = (uid) => {
     return (dispatch) => {
         return Axios
@@ -33,3 +33,16 @@ export const uploadPicture = (data, id) => {
         .catch((err) => console.log(err));
     };
   };
+
+  export const deleteProfil = (id) => {
+    return (dispatch) => {
+      return Axios({
+        method: "delete",
+        url: `http://localhost:5050/api/delete/${id}`,
+      })
+        .then((res) => {
+          dispatch({ type: DELETE_PROFIL, payload: { id } });
+        })
+        .catch((err) => console.log(err));
+    };
+  }

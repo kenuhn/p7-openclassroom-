@@ -14,9 +14,9 @@ nodemon server.js
 
 Ensuite lancer prisma avec npx prisma studio pour accéder à la base de donnés.
 
-Enfin, pour lancer le Front, ouvrir un nouveau terminal et se rendre dans le dossier front-end
+Enfin, pour lancer le Front, ouvrir un nouveau terminal et se rendre dans le dossier frontend
 
-cd front-end/
+cd frontend/
 
 puis lancer react
 

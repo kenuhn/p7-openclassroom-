@@ -2,6 +2,10 @@ import { React, useState, } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addComment, getPosts } from "../actions/post-actions";
 import { isEmpty } from "./utils";
+import { deleteComm} from "./deleteComm"
+
+
+
 const CardComments = ({ post }) => {
   const [text, setText] = useState('')
   const usersData = useSelector((state) => state.UsersReducer);
@@ -37,6 +41,7 @@ const CardComments = ({ post }) => {
               <div className="pseudo">
                 <h3>{commentaire.pseudoComm}</h3>
                 <p>{commentaire.texte}</p>
+                <deleteComm commentaire={commentaire} postId={post.id} />
               </div>
             </div>
           </div>

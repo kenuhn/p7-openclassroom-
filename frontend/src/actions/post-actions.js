@@ -2,7 +2,7 @@ import Axios from "axios";
 export const GET_POSTS = "GET_POSTS";
 export const ADD_POST = "ADD_POST";
 export const ADD_COMMENT = "ADD_COMMENT";
-
+export const DELETE_POST = "DELETE_POST"
 
 
 export const getPosts = (num) => {
@@ -41,6 +41,19 @@ export const getPosts = (num) => {
         .catch((err) => console.log(err));
     };
   };
+
+  export const deletePost = (postID) => {
+    return (dispatch) => {
+      return Axios({
+        method: "delete",
+        url: `http://localhost:5050/api/post/${postID}`,
+      })
+        .then((res) => {
+          dispatch({ type: DELETE_POST, payload: { postID } });
+        })
+        .catch((err) => console.log(err));
+    };
+  }
 
 
 

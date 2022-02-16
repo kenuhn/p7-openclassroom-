@@ -2,6 +2,9 @@ const express = require('express');
 const createError = require('http-errors');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
+const hpp = require('hpp');
+const helmet       = require('helmet');
+const nocache      = require('nocache')
 const path         = require('path');
 require('dotenv').config();
 const cors = require('cors')
@@ -36,6 +39,9 @@ app.use((req, res, next) => {
   next(createError.NotFound());
 });
 
+app.use(helmet())
+app.use(nocache())
+app.use(hpp())
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.send({

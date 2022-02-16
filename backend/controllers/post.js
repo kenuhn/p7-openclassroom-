@@ -39,10 +39,11 @@ exports.deleteOnePost = async (req, res , next) => {
         }
     })
 
-        res.status(200).json(postSupr).json({message: 'post supprimé'})
+        res.status(200).json(postSupr)
     }
     catch (err){
         res.status(400).json(err)
+        throw err
     }
 }
 

@@ -37,12 +37,12 @@ const LikeButton = ({ post }) => {
     const HandleLike = (e) => {
        if (like === 0 ){
         e.preventDefault();
-        setLike(c => c = 1)
+        setLike(like => like = 1)
             setLiked(true)
         console.log(like)
        } else {
         e.preventDefault();
-        setLike(c => c = 0)
+        setLike(like => like = 0)
         setLiked(false)
             
             console.log(like)

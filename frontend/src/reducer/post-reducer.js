@@ -14,7 +14,9 @@ import {
     switch (action.type) {
         case GET_POSTS:
           return action.payload;
-          default: 
-          return state
+          case DELETE_POST:
+            return state.filter((post) => post.id !== action.payload.postID)
+            default: 
+            return state
      }
     }
