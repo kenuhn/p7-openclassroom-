@@ -12,7 +12,7 @@ const DeleteComm = ({commentaire}) => {
 
     useEffect(() => {
         const checkAuthor = () => {
-          if (userData.pseudo === commentaire.pseudoComm) {
+          if (userData.pseudo === commentaire.pseudoComm || userData.id === AdminID.id ) {
             setIsAuthor(true);
           }
         };
@@ -23,11 +23,11 @@ const DeleteComm = ({commentaire}) => {
      dispatch(deleteCommentaire(commentaire.id))
      window.location.reload()
  };
-  
+  console.log(userData.id)
     
     return (
         <div className="edit-comment">
-          {userData.id === AdminID.id ||userData.pseudo , commentaire.pseudoComm &&(<span onClick={() => {
+          { isAuthor &&(<span onClick={() => {
               if (window.confirm("êtes vous sur de supprimer le commentaire de l'utilisateur")){
                 handleDelete();
               }

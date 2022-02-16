@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { $CombinedState } from "redux";
 import  { isEmpty } from "../components/utils";
 import CardComments from "./cardComment";
 import DeletCard from "./deletCard";
@@ -7,16 +8,26 @@ import LikeButton from "./likeButton";
 
 const Card = ({ post }) => {
     const [isLoading, setIsLoading] = useState(true);
-    const [isUpdated, setIsUpdated] = useState(false);
-    const [textUpdate, setTextUpdate] = useState(null);
-    const  [showComments, setShowComments] = useState(false);
+    const [isAuthor, setIsAuthor] = useState(false);
+    const [showComments, setShowComments] = useState(false);
     const usersData = useSelector((state) => state.UsersReducer);
     const userData = useSelector((state) => state.UserReducer);
     const dispatch = useDispatch();
+    const AdminID = { id: 1}
+
     useEffect(() => {
          !isEmpty(usersData[0]) && setIsLoading(false) 
     }, [usersData])
-   const AdminID = { id: 1}
+
+   useEffect(() => {
+    const checkAuthor = () => {
+      if (userData.id === post.auteurID || userData.id === AdminID.id ) {
+        setIsAuthor(true);
+      }
+    };
+    checkAuthor();
+  }, [userData.pseudo , post.auteurID]);
+
     return (
         <li className="card-container" key={post.id}>
             {isLoading ? (
@@ -54,7 +65,7 @@ const Card = ({ post }) => {
             </div>
             <p>{post.description}</p>
             {post.imagesUrl &&( <img src={post.imagesUrl} alt="images du post" className="card-pic" />)}
-            {userData.id === AdminID.id || userData.id  === post.auteurID &&(
+            {isAuthor &&(
               <div className="button-container">
                 <DeletCard id={post.id} />
               </div>
