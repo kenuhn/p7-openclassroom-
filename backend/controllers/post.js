@@ -48,7 +48,6 @@ exports.deleteOnePost = async (req, res , next) => {
 }
 
 exports.createpost = async (req, res, next) => {
-
     try {   
             if (req.file){
                 const posts = await prisma.post.create({

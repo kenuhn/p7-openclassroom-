@@ -15,12 +15,14 @@ app.use(express.json());
 const corsOptions = {
   origin: "http://localhost:3000",
   credentials: true,
-  'allowedHeaders': ['sessionId', 'Content-Type'],
+  'allowedHeaders': ['sessionId', 'Content-Type', 'Authorization'],
   'exposedHeaders': ['sessionId'],
   'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
   'preflightContinue': false
 }
 app.use(cors(corsOptions))
+
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser())

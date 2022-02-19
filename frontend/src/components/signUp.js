@@ -11,29 +11,51 @@ const SignUp = () => {
 
     const handleRegister = async (e) => {
         e.preventDefault();
-        const pseudoError = document.querySelector('.psuedo.error');
+        const pseudoError = document.querySelector('.pseudo.error')
         const emailError = document.querySelector('.email.error');
         const passwordError = document.querySelector('.password.error')
         const ctrlPasswordError = document.querySelector(".ctrlPassword.error")
 
         ctrlPasswordError.innerHTML = "";
 
+
+        ////////////////    pseudo   /////////////////////
+        let pseudoRegex = new RegExp(
+            /^[a-zA-Z\-]+$/
+        )
+        let testPseudo = pseudoRegex.test(pseudo)
+        if (testPseudo == false){
+            pseudoError.textContent ="pseudo pas secure"
+        }
+        /////////////      EMAIL      ////////////////////
+
         let emailRegexp = new RegExp(
             '^[0-9a-z._-]+@{1}[0-9a-z.-]{2,}[.]{1}[a-z]{2,5}$', 'i'
         );
         let testEmail = emailRegexp.test(email);
         if (testEmail == false) {
-            emailError.textContent = 'Adresse non Valide';
+            emailError.textContent = 'Email non Valide';
+        } 
+        ////////////////    PASSWORD   /////////////////////
+        let passwordRegexp = new RegExp(
+            /^[#.0-9a-zA-ZÀ-ÿ\s,-]{2,60}$/
+        )
+        let testPassword = passwordRegexp.test(password)
+        if (testPassword == false){
+            passwordError.textContent ="Password pas secure"
         }
-        else {
-            emailError.textContent = 'valide';
-        }
-        if (password !== ctrlPassword) {
+
+        if (password !== ctrlPassword ) {
             ctrlPasswordError.innerHTML = "les mots de passe ne correspondent pas";
-        } else {
+        } 
+        
+        if (testEmail == false || testPassword == false || testPseudo == false  || password !== ctrlPassword){
+            alert('une erreur a été commise')
+        }else {
             await Axios({
                 method: "post",
                 url: "http://localhost:5050/api/signup",
+                withCredentials: true,
                 data: {
                     pseudo,
                     email,

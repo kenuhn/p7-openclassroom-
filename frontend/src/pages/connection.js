@@ -9,7 +9,7 @@ const Connection = () => {
       <div className="profil-page">
      {Uid ? (<UpdateProfil />) : (
             <div className="log-container">
-                <Log SignIn={false} SignUp={true}/>
+                {<Log SignIn={false} SignUp={true}/>}
              <img src="./img/log.Svg" alt="connection"/> 
             </div> 
             )}

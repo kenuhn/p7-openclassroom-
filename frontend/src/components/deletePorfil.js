@@ -13,28 +13,20 @@ const DeleteProfil = () => {
     const deleteOne = () => {
         disptach(deleteProfil(userData.id))
     }
-    const removeCookie = (key) => {
+    const removeTKN = (key) => {
         if (window !== "undefined") {
-            cookie.remove(key, { expires: 1 })
+            localStorage.clear(key)
         }
     }
 
     const logout = async () => {
 
-        await Axios({
-            method: "get",
-            url: "http://localhost:5050/api/logout",
-            withCredentials: true,
-
-        })
-            .then(() => removeCookie('jwt'))
-            .catch((err) => console.log(err))
-
-        window.location = "/home"
+        removeTKN('user')
+        window.location = "/connection"
     }
     return (
         <button onClick={() => {
-            if (window.confirm('voulez-vous supprimer cet article')) {
+            if (window.confirm('voulez-vous supprimer votre compte')) {
                 deleteOne()
                 logout()
 

@@ -4,25 +4,30 @@ const SignIn = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("");
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
         const emailError = document.getElementsByClassName("email-error")
-        const passwordError = document.getElementsByClassName('password-error')
+        const passwordError = document.querySelector('.password.error')
 
-        Axios({
+        await Axios({
             method: "post",
             url: `http://localhost:5050/api/login`,
             withCredentials: true,
             data: {
                 email,
                 mdp: password,
-            }
+            },
 
         })
             .then((response) => {
-                console.log(response)
-                window.location = '/'
-
+                console.log(response.data.err)
+                if (response.data.err === "utilisateur non présent dans la base de donné"){
+                   return passwordError.textContent = response.data.err
+                 }else {
+                    console.log(response.data.err)
+                    localStorage.setItem("user", JSON.stringify(response.data));
+                    window.location = '/'
+                 }
             })
             .catch((err) => {
                 console.log(err)
@@ -52,7 +57,7 @@ const SignIn = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     value={password}
                 />
-                <div className="password-error"></div>
+                <div className="password error"></div>
                 <br />
                 <input type="submit" value="Se connecter" />
 

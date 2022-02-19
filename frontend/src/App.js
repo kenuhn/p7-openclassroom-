@@ -13,19 +13,14 @@ const App = () => {
   const [uid, setUid] = useState(null);
   const dispatch = useDispatch()
   useEffect(() => {
-    const fetchToken = async () => {
-      await Axios({
-        method: "get",
-        url: `http://localhost:5050/api/jwtid`,
-        withCredentials: true
-      })
-        .then((res) => {
-          console.log(res)
-          setUid(res.data.utilisateurId)
-        })
-        .catch((err) => console.log(err))
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user && user.token) {
+      const userId =  user.userId ;
+      setUid(userId)
+      console.log(userId)
+    } else {
+      return{};
     }
-    fetchToken()
     if (uid) {
       dispatch(getUser(uid))
     }

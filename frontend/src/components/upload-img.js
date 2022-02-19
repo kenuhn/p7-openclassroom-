@@ -13,7 +13,7 @@ const UploadImg = () => {
     const data = new FormData();
     data.append("name", userData.pseudo);
     data.append("userId", userData.id);
-    data.append("imageUrl", file);
+    data.append("imagesUrl", file);
     dispatch(uploadPicture(data, userData.id));
   };
   
@@ -23,7 +23,7 @@ const UploadImg = () => {
       <input
         type="file"
         id="file"
-        name="imageUrl"
+        name="imagesUrl"
         accept=".jpg, .jpeg, .png"
         onChange={(e) => setFile(e.target.files[0])}
       />

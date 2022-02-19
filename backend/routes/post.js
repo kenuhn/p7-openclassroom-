@@ -1,13 +1,14 @@
 const router = require('express').Router()
-const userCtrl = require('../controllers/post');
 const auth = require('../middleware/auth');
+const postCtrl = require('../controllers/post');
+const userCtrl = require('../controllers/utilisateur')
 const multerPost = require('../middleware/multer-post');
 
-router.get('/home', multerPost, userCtrl.getAllPost)
-router.post('/home/:id',  multerPost, userCtrl.createpost)
-router.delete('/post/:id', multerPost, userCtrl.deleteOnePost)
-router.post('/home/:postId/like', auth, multerPost, userCtrl.likeOnePost )
-router.get('/home/like', userCtrl.getAllLike )
+router.get('/home', multerPost, postCtrl.getAllPost)
+router.post('/home/:id', multerPost, postCtrl.createpost)
+router.delete('/post/:id', multerPost, postCtrl.deleteOnePost)
+router.post('/home/:postId/like', multerPost, postCtrl.likeOnePost )
+router.get('/home/like', postCtrl.getAllLike )
 
 
 module.exports = router;
