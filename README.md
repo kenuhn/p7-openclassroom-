@@ -11,6 +11,7 @@
 - liker les posts d'autres utilisateurs 
 - Créer un compte administrateur capable de modérer le réseau social 
 
+![home_groupomania](https://user-images.githubusercontent.com/87643200/216177857-c53ed532-3d0a-4301-bae1-65e9fca41915.jpg)
 
 # Pour la stack j'ai décidé d'utiliser pour le backend : 
 - nodeJs et le framework express 
@@ -41,9 +42,6 @@ Enfin, pour lancer le Front, ouvrir un nouveau terminal et
 se rendre dans le dossier frontend:  "cd frontend/"
 
 puis lancer react: "npm start"
-
-
-![Uyq0e](https://user-images.githubusercontent.com/87643200/216177684-e2be2386-2ea8-4d8a-8bc6-39d85ef99a22.png)
 
 
 
