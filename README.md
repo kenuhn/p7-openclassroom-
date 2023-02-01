@@ -1,6 +1,6 @@
 
 
-# P6: GROOUPOMANIA
+# P6: GROUPOMANIA
 
 # Création d'un reseau social d'entreprise dans lequel on peut
 - créer un compte le supprimer
