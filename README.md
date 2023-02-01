@@ -18,6 +18,7 @@
 pour le backend : 
 - nodeJs et le framework express 
 - l'orm prisma pour la base de donné relationnelle
+
 pour le frontend : 
 - html 5
 - Sass/ scss
