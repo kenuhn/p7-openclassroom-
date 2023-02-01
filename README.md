@@ -1,8 +1,8 @@
 
 
-####P7 GROOUPOMANIA
+# P6: GROOUPOMANIA
 
-#Création d'un reseau social d'entreprise dans lequel on peut
+# Création d'un reseau social d'entreprise dans lequel on peut
 - créer un compte le supprimer
 - se connecter et se déconnecter
 - importer une photo de profil ou la changer
@@ -12,7 +12,7 @@
 - Créer un compte administrateur capable de modérer le réseau social 
 
 
-#Pour la stack j'ai décidé d'utiliser pour le backend : 
+# Pour la stack j'ai décidé d'utiliser pour le backend : 
 - nodeJs et le framework express 
 - l'orm prisma pour la base de donné relationnelle
 pour le frontend : 
@@ -22,7 +22,7 @@ pour le frontend :
 - redux 
 
 
-#Pour lancer le projet :
+# Pour lancer le projet :
 
 installer la bonne la version de node 17.2.0
 avec le gestionnaire de version NVM
@@ -31,6 +31,7 @@ avec le gestionnaire de version NVM
 Se rendre dans dossier backend et installer node et toute les dépendances :
 
 "cd back-end/" && "npm i"
+
 
 Ensuite, lancer le server: "nodemon server.js"
 
@@ -41,7 +42,7 @@ se rendre dans le dossier frontend:  "cd frontend/"
 
 puis lancer react: "npm start"
 
-
+![Uyq0e](https://user-images.githubusercontent.com/87643200/216177203-eac731ba-b2b9-406f-9f5b-4b9583a963e3.png)
 
 
 
