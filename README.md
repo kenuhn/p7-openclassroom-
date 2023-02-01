@@ -13,7 +13,9 @@
 
 ![home_groupomania](https://user-images.githubusercontent.com/87643200/216177857-c53ed532-3d0a-4301-bae1-65e9fca41915.jpg)
 
-# Pour la stack j'ai décidé d'utiliser pour le backend : 
+# Pour la stack j'ai décidé d'utiliser:
+
+pour le backend : 
 - nodeJs et le framework express 
 - l'orm prisma pour la base de donné relationnelle
 pour le frontend : 
